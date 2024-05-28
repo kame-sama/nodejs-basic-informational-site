@@ -4,6 +4,8 @@ import { readFile } from 'node:fs/promises';
 const hostname = 'localhost';
 const port = 8080;
 
+const page404 = await readFile('./404.html');
+
 const server = createServer(async (req, res) => {
   const path = req.url;
   let data;
@@ -16,7 +18,7 @@ const server = createServer(async (req, res) => {
     }
     res.statusCode = 200;
   } catch (error) {
-    data = await readFile('./404.html');
+    data = page404;
     res.statusCode = 404;
     console.log(error.message);
   }
